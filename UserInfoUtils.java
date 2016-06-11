@@ -12,6 +12,7 @@ import java.util.Map;
 
 import android.R.string;
 import android.content.Context;
+import android.os.Environment;
 
 public class UserInfoUtils {
 
@@ -19,11 +20,10 @@ public class UserInfoUtils {
 	public static boolean saveInfo(Context context,String name,String password){
 		try {
 			String result = name + "##" + password;
-			//通过上下文获取文件路径
-//			String path = context.getFilesDir().getPath();
-//			File file = new File(path,"info.txt");
-			//通过上下文获取文件输出流
-			FileOutputStream fos = context.openFileOutput("info.txt", Context.MODE_PRIVATE);
+			//获取SD卡路径 记住要添加访问SD卡的权限android.permission.WRITE_EXTERNAL_STORAGE
+			String sdpath = Environment.getExternalStorageDirectory().getPath();
+			File file = new File(sdpath,"info.txt");
+			FileOutputStream fos = new FileOutputStream(file);
 			fos.write(result.getBytes());
 			fos.close();
 			return true;
@@ -37,10 +37,11 @@ public class UserInfoUtils {
 		Map<String, String> maps;
 		try {
 			maps = new HashMap<String, String>();
-//			String path = context.getFilesDir().getPath();
-//			File file = new File(path,"info.txt");
-			//通过上下文获取文件输入流
-			FileInputStream fis = context.openFileInput("info.txt");
+			//获取SD卡路径
+			String sdpath = Environment.getExternalStorageDirectory().getPath();
+			File file = new File(sdpath,"info.txt");
+			
+			FileInputStream fis = new FileInputStream(file);
 			BufferedReader bfr = new BufferedReader(new InputStreamReader(fis));
 			String content = bfr.readLine();
 			String[] splits = content.split("##");
