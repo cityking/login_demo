@@ -27,7 +27,7 @@ public class MainActivity extends Activity {
 		et_pwd = (EditText) findViewById(R.id.et_pwd);
 		check = (CheckBox) findViewById(R.id.check);
 		
-		Map<String, String> maps = UserInfoUtils.readInfo();
+		Map<String, String> maps = UserInfoUtils.readInfo(MainActivity.this);
 		if(maps!=null){
 			String name = maps.get("name");
 			String password = maps.get("password");
@@ -49,7 +49,7 @@ public class MainActivity extends Activity {
 		}else{
 			System.out.println("进入登陆逻辑");
 			if (check.isChecked()) {
-				boolean result = UserInfoUtils.saveInfo(userName, password);
+				boolean result = UserInfoUtils.saveInfo(MainActivity.this,userName, password);
 				if(result){
 					Toast.makeText(MainActivity.this, "保存成功", Toast.LENGTH_LONG).show();
 				}else{

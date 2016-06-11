@@ -11,14 +11,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 import android.R.string;
+import android.content.Context;
 
 public class UserInfoUtils {
 
 	//保存用户名和密码的业务逻辑
-	public static boolean saveInfo(String name,String password){
+	public static boolean saveInfo(Context context,String name,String password){
 		try {
 			String result = name + "##" + password;
-			File file = new File("data/data/com.example.login/info.txt");
+			//通过上下文获取文件路径
+			String path = context.getFilesDir().getPath();
+			File file = new File(path,"info.txt");
 			FileOutputStream fos = new FileOutputStream(file);
 			fos.write(result.getBytes());
 			fos.close();
@@ -29,11 +32,12 @@ public class UserInfoUtils {
 		}
 	}
 	
-	public static Map<String, String> readInfo(){
+	public static Map<String, String> readInfo(Context context){
 		Map<String, String> maps;
 		try {
 			maps = new HashMap<String, String>();
-			File file = new File("data/data/com.example.login/info.txt");
+			String path = context.getFilesDir().getPath();
+			File file = new File(path,"info.txt");
 			FileInputStream fis = new FileInputStream(file);
 			BufferedReader bfr = new BufferedReader(new InputStreamReader(fis));
 			String content = bfr.readLine();
