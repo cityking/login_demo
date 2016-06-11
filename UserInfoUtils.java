@@ -20,9 +20,10 @@ public class UserInfoUtils {
 		try {
 			String result = name + "##" + password;
 			//通过上下文获取文件路径
-			String path = context.getFilesDir().getPath();
-			File file = new File(path,"info.txt");
-			FileOutputStream fos = new FileOutputStream(file);
+//			String path = context.getFilesDir().getPath();
+//			File file = new File(path,"info.txt");
+			//通过上下文获取文件输出流
+			FileOutputStream fos = context.openFileOutput("info.txt", Context.MODE_PRIVATE);
 			fos.write(result.getBytes());
 			fos.close();
 			return true;
@@ -36,9 +37,10 @@ public class UserInfoUtils {
 		Map<String, String> maps;
 		try {
 			maps = new HashMap<String, String>();
-			String path = context.getFilesDir().getPath();
-			File file = new File(path,"info.txt");
-			FileInputStream fis = new FileInputStream(file);
+//			String path = context.getFilesDir().getPath();
+//			File file = new File(path,"info.txt");
+			//通过上下文获取文件输入流
+			FileInputStream fis = context.openFileInput("info.txt");
 			BufferedReader bfr = new BufferedReader(new InputStreamReader(fis));
 			String content = bfr.readLine();
 			String[] splits = content.split("##");
