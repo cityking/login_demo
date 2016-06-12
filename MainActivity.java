@@ -34,6 +34,9 @@ public class MainActivity extends Activity {
 
 		String name = sharedPreferences.getString("name", "");
 		String password = sharedPreferences.getString("pwd", "");
+		boolean ischecked = sharedPreferences.getBoolean("ischecked", false);
+		check.setChecked(ischecked);
+		
 
 		et_name.setText(name);
 		et_pwd.setText(password);
@@ -53,6 +56,7 @@ public class MainActivity extends Activity {
 				SharedPreferences.Editor editor = sharedPreferences.edit();
 				editor.putString("name", userName);
 				editor.putString("pwd", password);
+				editor.putBoolean("ischecked", true);
 				editor.commit();
 				
 			} else {
